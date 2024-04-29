@@ -45,4 +45,49 @@ public class JobTest {
         assertFalse(equals(test_job_one) != equals(test_job_two));
     }
 
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job test_job_one = new Job("Bob", new Employer("Target"), new Location("Chicago"), new PositionType("Manager"), new CoreCompetency("Leadership"));
+        String newline = System.lineSeparator();
+        String test_string = newline + "Job{" +
+                "id=" + test_job_one.getId() +
+                ", name='" + test_job_one.getName() + '\'' +
+                ", employer=" + test_job_one.getEmployer() +
+                ", location=" + test_job_one.getLocation() +
+                ", positionType=" + test_job_one.getPositionType() +
+                ", coreCompetency=" + test_job_one.getCoreCompetency() +
+                '}' + newline;;
+
+        assertEquals(test_string.startsWith(newline) && test_string.endsWith(newline), test_job_one.toString().startsWith(newline) && test_job_one.toString().endsWith(newline));
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job test_job_one = new Job("Bob", new Employer("Target"), new Location("Chicago"), new PositionType("Manager"), new CoreCompetency("Leadership"));
+        String newline = System.lineSeparator();
+        String test_string = newline +
+                "ID: " + test_job_one.getId() + newline +
+                "Name: " + test_job_one.getName() + newline +
+                "Employer: " + test_job_one.getEmployer() + newline +
+                "Location: " + test_job_one.getLocation() + newline +
+                "Position Type: " + test_job_one.getPositionType() + newline +
+                "Core Competency: " + test_job_one.getCoreCompetency() + newline;
+
+        assertEquals(test_string, test_job_one.toString());
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job test_job_one = new Job("Bob", new Employer(""), new Location("Chicago"), new PositionType(""), new CoreCompetency("Leadership"));
+        String newline = System.lineSeparator();
+        String test_string = newline +
+                "ID: " + test_job_one.getId() + newline +
+                "Name: " + test_job_one.getName() + newline +
+                "Employer: Data not available" + newline +
+                "Location: " + test_job_one.getLocation() + newline +
+                "Position Type: Data not available" + newline +
+                "Core Competency: " + test_job_one.getCoreCompetency() + newline;
+
+        assertEquals(test_string, test_job_one.toString());
+    }
 }
